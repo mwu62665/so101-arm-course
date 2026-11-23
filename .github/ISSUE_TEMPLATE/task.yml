@@ -1,6 +1,6 @@
 name: 任务卡
 description: 一件有明确验证点、能判定真假的事
-title: "[W?] "
+title: ""
 labels: []
 body:
   - type: markdown
@@ -14,7 +14,7 @@ body:
     attributes:
       label: 目标
       description: 做完之后世界有什么不一样，一句话
-      placeholder: H50 六轴控制环能在 100Hz 下平滑执行上位机下发的目标角
+      placeholder: 六路舵机都能响应上位机下发的目标角
     validations:
       required: true
 
@@ -24,9 +24,9 @@ body:
       label: 验证点（怎么算做完）
       description: 逐条列出，组会照着念一遍就能判定
       placeholder: |
-        - [ ] 上位机连续发 100 帧目标角，无丢帧
-        - [ ] 示波器/OLED 确认控制环周期 ≤10ms
-        - [ ] 6 个舵机读回角度与目标角偏差 <2°
+        - [ ] 连续发 100 帧指令，无丢帧
+        - [ ] 读回角度与目标角偏差 <2°
+        - [ ] 演示过程可投屏
     validations:
       required: true
 
@@ -48,8 +48,8 @@ body:
     id: plan
     attributes:
       label: 预计完成
-      description: 日期，或写 "W3 结束"
-      placeholder: 2026-11-29（W2 结束）
+      description: 日期；排期没定就填 "未排期"
+      placeholder: 未排期
     validations:
       required: true
 
@@ -60,7 +60,7 @@ body:
       description: |
         写清楚"要等谁的哪个动作"。**有内容就务必同时打 `blocked` 标签**，
         这是组长每周只清一遍的那一列。没有就填"无"。
-      placeholder: 等 #14 换上拉电阻后重测；我完成后解锁 #18 联调
+      placeholder: 等 #4 完成后才能开始联调
     validations:
       required: true
 
@@ -68,8 +68,8 @@ body:
     id: refs
     attributes:
       label: 相关
-      description: 方案文档章节、协议帧、资料包路径、参考链接
+      description: 项目规划.md 的条目、资料包路径、参考链接
       render: shell
       placeholder: |
-        方案 §7 软件模块划分
-        塔克 ROS2 源码 usb_link.c 帧格式
+        项目规划.md 已确定第 2 项（飞特舵机）
+        本地资料：D:/...
