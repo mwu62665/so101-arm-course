@@ -1,0 +1,46 @@
+# 本地私有（组员的个人记忆/笔记，绝不进仓库）
+.workbuddy/
+*.bak
+*.log
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# 训练与数据（体积大，走网盘/Release，不进 git）
+data/raw/
+data/datasets/
+outputs/
+runs/
+*.mp4
+*.pth
+*.pt
+*.ckpt
+*.zip
+!docs/examples/*.zip
+
+# C / STM32
+build/
+*.o
+*.d
+*.map
+*.hex
+*.bin
+Debug/
+Release/
+Listings/
+Objects/
+*.uvguix.*
+*.ls
+
+# IDE / 系统
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store

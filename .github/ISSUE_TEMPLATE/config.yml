@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 进度与分工
+    url: ../../blob/main/PROGRESS.md
+    about: 现在到哪了、谁在做什么、什么卡住了，都在这一个文件里
