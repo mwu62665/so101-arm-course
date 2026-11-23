@@ -4,7 +4,7 @@
 
 | 想看什么 | 去哪 |
 |---|---|
-| **已确定的范围 / 还有什么没定** | [`项目规划.md`](项目规划.md) |
+| **已确定的范围与分工** | [`项目规划.md`](项目规划.md) |
 | **到哪了、谁卡住了** | [`PROGRESS.md`](PROGRESS.md) |
 | 具体某件事 | [Issues](../../issues) |
 | 看板 | [projects/1](https://github.com/users/mwu62665/projects/1) |
@@ -22,10 +22,8 @@ arm101 机械臂 · 飞特舵机 · YOLO · 顶层 LLM 语言控制
 ## 目录
 
 ```
-项目规划.md      范围与待定项
+项目规划.md      已确定的范围与分工
 PROGRESS.md      进度公示
 docs/            交付物
-host/            上位机代码（语言与结构待定）
-firmware/        下位机代码（控制板待定）
-training/        模型训练（待定）
+host/  firmware/  training/    空占位目录，代码怎么放等你定
 ```
