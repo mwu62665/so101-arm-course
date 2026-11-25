@@ -23,9 +23,11 @@ arm101 机械臂 · 飞特舵机 · YOLO · 顶层 LLM 语言控制
 
 ## 目录
 
-```
-docs/
-  项目公示/    PROGRESS.md 项目规划.md 采购清单.md 资金管理.md
-  项目资料/    应用场景调研.md、开题答辩 PPT 等
-host/  firmware/  training/    空占位目录，代码怎么放等你定
-```
+| 文件夹 | 放什么 | 现状 |
+|---|---|---|
+| `docs/项目公示/` | 给组员看的项目状态：进度、规划、采购、资金 | PROGRESS.md、项目规划.md、采购清单.md、资金管理.md |
+| `docs/项目资料/` | 调研与答辩材料 | 应用场景调研.md；开题答辩 PPT 待放入 |
+| `host/` | 上位机代码（PC 端控制、YOLO、LLM） | 空占位 |
+| `firmware/` | 下位机固件 | 不适用（架构不设独立下位机） |
+| `training/` | 模仿学习训练代码与数据 | 空占位 |
+| `.github/ISSUE_TEMPLATE/` | 任务卡表单（goal / verify / lane 等字段） | task.yml |
