@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>Slide 07 · 系统总体架构</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <div class="kicker"><span class="kicker-dot"></span>06 // SYSTEM ARCHITECTURE · LEROBOT NATIVE</div>
+        <h1 class="slide-title">采用 LeRobot 原生四层架构，上位机统一感知、策略与舵机控制</h1>
+      </div>
+      <div class="header-right">LeRobot 原生架构<br/>USB 直连驱动板与双路相机</div>
+    </div>
+
+    <div class="slide-body">
+      <div class="card" style="flex:1; padding:24px 30px; justify-content:center;">
+        <svg viewBox="0 0 1720 670" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="arrowDown" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#1D4ED8"/>
+            </marker>
+            <marker id="arrowTeal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#0F766E"/>
+            </marker>
+            <marker id="arrowRed" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#DC2626"/>
+            </marker>
+          </defs>
+
+          <!-- Left Layer Index Column -->
+          <g font-family="Consolas, monospace" font-size="14" font-weight="700" fill="#64748B">
+            <text x="16" y="72">LAYER 01</text>
+            <text x="16" y="94" font-family="PingFang SC, Microsoft YaHei" font-size="16" fill="#0F172A">语言指挥层</text>
+
+            <text x="16" y="246">LAYER 02</text>
+            <text x="16" y="268" font-family="PingFang SC, Microsoft YaHei" font-size="16" fill="#1D4ED8">策略与决策层</text>
+            <text x="16" y="292" font-family="PingFang SC, Microsoft YaHei" font-size="13" fill="#64748B">上位机 PC</text>
+
+            <text x="16" y="446">LAYER 03</text>
+            <text x="16" y="468" font-family="PingFang SC, Microsoft YaHei" font-size="16" fill="#0F766E">感知与接口层</text>
+
+            <text x="16" y="592">LAYER 04</text>
+            <text x="16" y="614" font-family="PingFang SC, Microsoft YaHei" font-size="16" fill="#0F172A">硬件执行层</text>
+          </g>
+
+          <!-- LAYER 1: LLM Command Layer -->
+          <rect x="170" y="22" width="1290" height="106" rx="8" fill="#F8FAFC" stroke="#0F172A" stroke-width="2"/>
+          <rect x="192" y="42" width="290" height="66" rx="6" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+          <text x="337" y="70" text-anchor="middle" fill="#0F172A" font-family="PingFang SC, Microsoft YaHei" font-size="18" font-weight="700">用户自然语言输入</text>
+          <text x="337" y="94" text-anchor="middle" fill="#64748B" font-family="PingFang SC, Microsoft YaHei" font-size="14">“先把红杯子放杯架，再收餐盘”</text>
+
+          <line x1="482" y1="75" x2="544" y2="75" stroke="#1D4ED8" stroke-width="2.5" marker-end="url(#arrowDown)"/>
+
+          <rect x="552" y="42" width="440" height="66" rx="6" fill="#EFF6FF" stroke="#1D4ED8" stroke-width="2"/>
+          <text x="772" y="70" text-anchor="middle" fill="#1D4ED8" font-family="PingFang SC, Microsoft YaHei" font-size="19" font-weight="700">顶层轻量 LLM 指令解析器</text>
+          <text x="772" y="94" text-anchor="middle" fill="#334155" font-family="PingFang SC, Microsoft YaHei" font-size="14">任务拆解 · 参数补全 · 词表安全校验（不碰图像 / 无 VLM）</text>
+
+          <line x1="992" y1="75" x2="1054" y2="75" stroke="#1D4ED8" stroke-width="2.5" marker-end="url(#arrowDown)"/>
+
+          <rect x="1062" y="42" width="376" height="66" rx="6" fill="#0F172A"/>
+          <text x="1250" y="69" text-anchor="middle" fill="#93C5FD" font-family="Consolas, monospace" font-size="14">JSON STRUCTURED TASK QUEUE</text>
+          <text x="1250" y="93" text-anchor="middle" fill="#E2E8F0" font-family="Consolas, monospace" font-size="13">{act: pick_place, obj: cup, dst: rack}</text>
+
+          <!-- Down arrows L1 -> L2 -->
+          <line x1="815" y1="128" x2="815" y2="168" stroke="#1D4ED8" stroke-width="2.5" marker-end="url(#arrowDown)"/>
+
+          <!-- LAYER 2: Dual-Route Policy & LeRobot Host -->
+          <rect x="170" y="176" width="1290" height="196" rx="8" fill="#EFF6FF" stroke="#1D4ED8" stroke-width="2.5"/>
+          <text x="194" y="206" fill="#1D4ED8" font-family="Consolas, monospace" font-size="15" font-weight="700">LEROBOT NATIVE HOST RUNTIME // 任务调度与双路线抓取分工</text>
+
+          <!-- Route A -->
+          <rect x="194" y="224" width="600" height="128" rx="6" fill="#FFFFFF" stroke="#0F766E" stroke-width="2"/>
+          <rect x="194" y="224" width="600" height="34" rx="5" fill="#0F766E"/>
+          <text x="212" y="246" fill="#FFFFFF" font-family="PingFang SC, Microsoft YaHei" font-size="16" font-weight="700">路线 A：YOLO + 程序化抓取（规则物体 · 基础闭环 F2）</text>
+          <text x="212" y="282" fill="#0F172A" font-family="PingFang SC, Microsoft YaHei" font-size="16">• YOLO 识别类别与 2D 框中心</text>
+          <text x="212" y="308" fill="#0F172A" font-family="PingFang SC, Microsoft YaHei" font-size="16">• 双相机手眼标定解算桌面抓取坐标</text>
+          <text x="212" y="334" fill="#0F766E" font-family="PingFang SC, Microsoft YaHei" font-size="15" font-weight="700">→ 零训练 · 稳且快 · 逆解预设轨迹执行</text>
+
+          <!-- Route B -->
+          <rect x="836" y="224" width="600" height="128" rx="6" fill="#FFFFFF" stroke="#1D4ED8" stroke-width="2"/>
+          <rect x="836" y="224" width="600" height="34" rx="5" fill="#1D4ED8"/>
+          <text x="854" y="246" fill="#FFFFFF" font-family="PingFang SC, Microsoft YaHei" font-size="16" font-weight="700">路线 B：ACT 模仿学习策略（杯具等姿态多样 · 泛化核心 F3）</text>
+          <text x="854" y="282" fill="#0F172A" font-family="PingFang SC, Microsoft YaHei" font-size="16">• 人手掰臂示教采集（关节角反馈 + 同步双相机帧，50–100 条）</text>
+          <text x="854" y="308" fill="#0F172A" font-family="PingFang SC, Microsoft YaHei" font-size="16">• 训练 Action Chunking with Transformers 策略</text>
+          <text x="854" y="334" fill="#1D4ED8" font-family="PingFang SC, Microsoft YaHei" font-size="15" font-weight="700">→ 端到端视觉观测直接输出关节动作序列，具备位姿泛化</text>
+
+          <!-- Upward Arrow: L3 Vision -> L2 (Feeds both Route A & Route B) -->
+          <line x1="478" y1="420" x2="478" y2="380" stroke="#0F766E" stroke-width="2.5" marker-end="url(#arrowTeal)"/>
+          <text x="492" y="403" fill="#0F766E" font-family="PingFang SC, Microsoft YaHei" font-size="13.5" font-weight="700">实时双路图像帧上传 (30FPS)</text>
+
+          <!-- Downward Arrow: L2 -> L3 Servo Bus -->
+          <line x1="1136" y1="372" x2="1136" y2="412" stroke="#1D4ED8" stroke-width="2.5" marker-end="url(#arrowDown)"/>
+          <text x="1150" y="399" fill="#1D4ED8" font-family="PingFang SC, Microsoft YaHei" font-size="13.5" font-weight="700">目标关节角控制指令下发</text>
+
+          <!-- LAYER 3: Sensing & Bus Interface -->
+          <rect x="170" y="420" width="615" height="96" rx="8" fill="#F0FDFA" stroke="#0F766E" stroke-width="2"/>
+          <text x="194" y="452" fill="#0F766E" font-family="PingFang SC, Microsoft YaHei" font-size="19" font-weight="700">视觉感知：双路 USB 2.0 摄像头</text>
+          <text x="194" y="482" fill="#334155" font-family="PingFang SC, Microsoft YaHei" font-size="15">HBV-F2170HD V22 ×2 · OV2720 · 86° 无畸变 · 1080P@30FPS</text>
+          <text x="194" y="504" fill="#475569" font-family="PingFang SC, Microsoft YaHei" font-size="14">布局：1 路全局固定俯视/斜视 + 1 路腕部近景视角（USB 直连上位机）</text>
+
+          <rect x="815" y="420" width="645" height="96" rx="8" fill="#FFFFFF" stroke="#475569" stroke-width="2"/>
+          <text x="839" y="452" fill="#0F172A" font-family="PingFang SC, Microsoft YaHei" font-size="19" font-weight="700">总线通信：USB 转串口舵机驱动板</text>
+          <text x="839" y="482" fill="#334155" font-family="PingFang SC, Microsoft YaHei" font-size="15">上位机 LeRobot SDK 通过串口总线直接收发飞特舵机位置指令与状态反馈</text>
+          <text x="839" y="504" fill="#475569" font-family="PingFang SC, Microsoft YaHei" font-size="14">通信链路精简、延迟低，单根 USB 线即可完成 6 舵机同步读写</text>
+
+          <!-- Arrows L3 -> L4 -->
+          <line x1="1136" y1="516" x2="1136" y2="554" stroke="#1D4ED8" stroke-width="2.5" marker-end="url(#arrowDown)"/>
+
+          <!-- LAYER 4: Physical Hardware -->
+          <rect x="170" y="562" width="1290" height="90" rx="8" fill="#0F172A" stroke="#1E293B" stroke-width="2"/>
+          <text x="198" y="598" fill="#FFFFFF" font-family="PingFang SC, Microsoft YaHei" font-size="21" font-weight="700">SO-ARM101 单臂本体（6 自由度主臂 + 末端夹爪打印件）</text>
+          <text x="198" y="630" fill="#94A3B8" font-family="Consolas, monospace" font-size="15">6 × FEETECH STS3215 (C001×1 · C044×2 · C046×3)  |  3-12V 5A 可调电源  |  Leader 7.4V 单臂两用</text>
+
+          <!-- Right Feedback Loop (Red Observation Return) -->
+          <path d="M 1460 607 L 1560 607 L 1560 274 L 1468 274" fill="none" stroke="#DC2626" stroke-width="3" stroke-dasharray="8,5" marker-end="url(#arrowRed)"/>
+          <rect x="1488" y="382" width="218" height="118" rx="6" fill="#FEF2F2" stroke="#DC2626" stroke-width="2"/>
+          <text x="1597" y="410" text-anchor="middle" fill="#DC2626" font-family="Consolas, monospace" font-size="14" font-weight="700">REAL-TIME FEEDBACK</text>
+          <text x="1597" y="438" text-anchor="middle" fill="#0F172A" font-family="PingFang SC, Microsoft YaHei" font-size="16" font-weight="700">状态观测闭环</text>
+          <text x="1597" y="464" text-anchor="middle" fill="#475569" font-family="PingFang SC, Microsoft YaHei" font-size="14">• 舵机 6 维关节角实时回传</text>
+          <text x="1597" y="486" text-anchor="middle" fill="#475569" font-family="PingFang SC, Microsoft YaHei" font-size="14">• 双路 30FPS 图像同步帧</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <div class="footer-source">资料来源：《项目规划.md》第 2 节（2026-11-24 架构确认）、《应用场景调研.md》第 3.3 节、《采购清单.md》</div>
+      <div class="footer-page">07 / 13</div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>Slide 11 · 功能锚点与项目透明管理机制</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .anchor-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 14px;
+    }
+    .anchor-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-top: 5px solid var(--ink);
+      border-radius: 6px;
+      padding: 16px 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 248px;
+    }
+    .anchor-card.red { border-top-color: var(--signal); }
+    .anchor-card.teal { border-top-color: var(--teal); }
+    .anchor-card.blue { border-top-color: var(--accent); background: var(--accent-soft); }
+    .anchor-card.ok { border-top-color: var(--ok); }
+    .anchor-id {
+      font-family: var(--font-mono);
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--ink);
+    }
+    .anchor-card.red .anchor-id { color: var(--signal); }
+    .anchor-card.blue .anchor-id { color: var(--accent); }
+    .anchor-card.ok .anchor-id { color: var(--ok); }
+    .anchor-name {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 8px 0 6px 0;
+    }
+    .anchor-desc {
+      font-size: 16px;
+      line-height: 1.48;
+      color: var(--ink-2);
+    }
+    .anchor-judge {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px dashed var(--border-strong);
+      font-size: 14.5px;
+      color: var(--ink-3);
+      line-height: 1.45;
+    }
+    .gov-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 18px;
+      flex: 1;
+      min-height: 0;
+    }
+    .gov-box {
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      border-left: 5px solid var(--accent);
+      border-radius: 6px;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 10px;
+    }
+    .gov-box.teal { border-left-color: var(--teal); }
+    .gov-box.ok { border-left-color: var(--ok); }
+    .gov-box.dark { border-left-color: var(--ink); }
+    .gov-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .gov-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .gov-file {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--accent);
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-border);
+      padding: 3px 10px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+    .gov-box.teal .gov-file { color: var(--teal); background: var(--teal-soft); border-color: var(--teal-border); }
+    .gov-box.ok .gov-file { color: var(--ok); background: var(--ok-soft); border-color: var(--ok-border); }
+    .gov-box.dark .gov-file { color: var(--ink-2); background: #E2E8F0; border-color: #CBD5E1; }
+    .gov-desc {
+      font-size: 18.5px;
+      color: var(--ink-2);
+      line-height: 1.55;
+    }
+  </style>
+</head>
+<body>
+  <div class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <div class="kicker"><span class="kicker-dot"></span>10 // MILESTONES & TRANSPARENT GOVERNANCE</div>
+        <h1 class="slide-title">按「功能锚点」阶梯验收，依托全套公示文档实现透明项目管理</h1>
+      </div>
+      <div class="header-right">六大功能锚点 F0–F5<br/>文档公示 · 变更留痕 · GitHub 全员共享</div>
+    </div>
+
+    <div class="slide-body" style="gap:20px;">
+      <div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+          <span style="font-size:21px; font-weight:700; color:var(--ink);">一、核心功能验收锚点（按可观测物理标准阶梯解锁）</span>
+          <span class="mono" style="font-size:14.5px; color:var(--ink-3);">F0 硬件前提 → F2 基础闭环 → F3 核心突破 → F4/F5 综合验收</span>
+        </div>
+
+        <div class="anchor-grid">
+          <div class="anchor-card red">
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="anchor-id">F0</span>
+                <span class="badge badge-red">关键前提</span>
+              </div>
+              <div class="anchor-name">本体可用</div>
+              <div class="anchor-desc">单臂装好、通电、6 关节可控且稳定通信。</div>
+            </div>
+            <div class="anchor-judge"><strong>判定：</strong>掰臂关节角读数平滑；记录角度可精准复现。</div>
+          </div>
+
+          <div class="anchor-card">
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="anchor-id">F1</span>
+                <span class="badge badge-gray">前提</span>
+              </div>
+              <div class="anchor-name">感知定位</div>
+              <div class="anchor-desc">双相机手眼标定 + YOLO 桌面检测跑通。</div>
+            </div>
+            <div class="anchor-judge"><strong>判定：</strong>稳定检测杯具，坐标误差落在夹爪容差内。</div>
+          </div>
+
+          <div class="anchor-card teal">
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="anchor-id">F2</span>
+                <span class="badge badge-teal">基础闭环</span>
+              </div>
+              <div class="anchor-name">程序化抓取闭环</div>
+              <div class="anchor-desc">规则物体「识别→定位→抓取→放置」全链路。</div>
+            </div>
+            <div class="anchor-judge"><strong>判定：</strong>固定位姿重复抓放跑通，零训练、稳且快。</div>
+          </div>
+
+          <div class="anchor-card blue">
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="anchor-id">F3</span>
+                <span class="badge badge-blue">核心突破</span>
+              </div>
+              <div class="anchor-name">ACT 模仿学习</div>
+              <div class="anchor-desc">人手掰臂采示教 → 训练策略 → 视觉自主抓取。</div>
+            </div>
+            <div class="anchor-judge"><strong>判定：</strong>对未示教过的杯子摆放位置可实现泛化抓取。</div>
+          </div>
+
+          <div class="anchor-card ok">
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="anchor-id">F4</span>
+                <span class="badge badge-ok">验收</span>
+              </div>
+              <div class="anchor-name">场景闭环</div>
+              <div class="anchor-desc">桌面杯具与餐具连续归位整理整段流程。</div>
+            </div>
+            <div class="anchor-judge"><strong>判定：</strong>连续完成「识别→抓取→归位」，肉眼可验。</div>
+          </div>
+
+          <div class="anchor-card ok">
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="anchor-id">F5</span>
+                <span class="badge badge-ok">验收</span>
+              </div>
+              <div class="anchor-name">语言指令</div>
+              <div class="anchor-desc">自然语言 → 受约束结构化任务 → 驱动执行。</div>
+            </div>
+            <div class="anchor-judge"><strong>判定：</strong>说一句话准确路由任务，不碰图像、无 VLM。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="flex:1; padding:22px 26px; gap:14px;">
+        <div class="card-title" style="margin-bottom:0;">
+          <span>二、项目规范管理与透明公示机制</span>
+          <span class="badge badge-blue">全员可见 · 过程留痕 · 权责明晰</span>
+        </div>
+
+        <div class="gov-grid">
+          <div class="gov-box">
+            <div class="gov-head">
+              <div class="gov-title">1. 双轨进度与阻塞公示</div>
+              <div class="gov-file">进度公示.md / 本周工作安排.md</div>
+            </div>
+            <div class="gov-desc">按周同步全员在办事项、完成判定与已办结清单；特设「卡住的事」公开看板，写明阻塞责任人、依赖项与截止日，杜绝隐性延期。</div>
+          </div>
+
+          <div class="gov-box teal">
+            <div class="gov-head">
+              <div class="gov-title">2. 财务与采购全透明台账</div>
+              <div class="gov-file">资金管理.md / 采购清单.md</div>
+            </div>
+            <div class="gov-desc">坚持自愿垫资原则，公开 10 人垫资明细、每笔物料型号、单价、商品链接与资金结余，下学期报销款到账后按台账原路返还。</div>
+          </div>
+
+          <div class="gov-box ok">
+            <div class="gov-head">
+              <div class="gov-title">3. 重大架构决策留痕可回溯</div>
+              <div class="gov-file">变更记录.md + Git 版本控制</div>
+            </div>
+            <div class="gov-desc">所有范围与架构变更（架构定型、硬件选型、分工调整）均记录日期与原因；历史方案完整保留在 Git 提交中，随时可回滚。</div>
+          </div>
+
+          <div class="gov-box dark">
+            <div class="gov-head">
+              <div class="gov-title">4. 代码分区与知识产权共享</div>
+              <div class="gov-file">GitHub 开源协作仓库</div>
+            </div>
+            <div class="gov-desc">仓库按 <span class="mono">docs/</span>、<span class="mono">host/</span>、<span class="mono">training/</span>、<span class="mono">firmware/</span> 模块化协作；全部代码、数据集与文档全员共享，机械臂作为组内开放实验平台。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <div class="footer-source">资料来源：《项目规划.md》、《进度公示.md》、《变更记录.md》、《资金管理.md》、《采购清单.md》</div>
+      <div class="footer-page">11 / 13</div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>Slide 03 · 需求验证与政策窗口</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .timeline-policy {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .policy-item {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 16px;
+      padding: 14px 16px;
+      background: var(--surface-alt);
+      border-left: 4px solid var(--accent);
+      border-radius: 4px;
+      align-items: start;
+    }
+    .policy-item.caution {
+      border-left-color: var(--amber);
+    }
+    .policy-date {
+      font-family: var(--font-mono);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .policy-item.caution .policy-date {
+      color: var(--amber);
+    }
+    .policy-text {
+      font-size: 17px;
+      line-height: 1.48;
+      color: var(--ink-2);
+    }
+    .policy-text strong { color: var(--ink); }
+    .opp-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    .opp-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--accent);
+      border-radius: 6px;
+      padding: 20px 24px;
+    }
+    .opp-box h4 {
+      font-size: 20px;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+    .opp-box p {
+      font-size: 17px;
+      color: var(--ink-2);
+      line-height: 1.52;
+    }
+  </style>
+</head>
+<body>
+  <div class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <div class="kicker"><span class="kicker-dot"></span>02 // DEMAND, SUPPLY & POLICY WINDOW</div>
+        <h1 class="slide-title">现实买家在教育端，家庭普及尚需数年，低成本可复现闭环存在空位</h1>
+      </div>
+      <div class="header-right">真实采购案例 · 政策时间线<br/>教育端优先于家庭端</div>
+    </div>
+
+    <div class="slide-body">
+      <div class="grid-2" style="flex:1; min-height:0;">
+        <!-- Left: Real Procurement & Demand Reality -->
+        <div class="card" style="justify-content:space-between;">
+          <div>
+            <div class="card-title">
+              <span>需求侧验证：教育端已真金白银采购，家庭端仍在试点</span>
+              <span class="badge badge-ok">真实案例</span>
+            </div>
+            <table class="data-table" style="font-size:16px; margin-bottom:18px;">
+              <thead>
+                <tr>
+                  <th>采购方 / 场景</th>
+                  <th>标的与金额</th>
+                  <th>核心启示</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>武汉大学</strong><br/><span style="font-size:13px;color:var(--ink-3);">2026-09 成交 [9]</span></td>
+                  <td>桌面型具身智能教学机器人 6 台套<br/><strong class="mono">成交 18.84 万元</strong></td>
+                  <td>高校愿为具身教学付费（实为双足人形+仿真，非桌面臂）</td>
+                </tr>
+                <tr>
+                  <td><strong>中国矿业大学</strong> [10]</td>
+                  <td>协作机械臂 1 套 · <strong class="mono">预算 15 万元</strong></td>
+                  <td>高校科研与教学持续采购操作型臂体</td>
+                </tr>
+                <tr>
+                  <td><strong>苏州中小学/中职</strong> [11]</td>
+                  <td>智能文创教育演示机械臂<br/><strong class="mono">预算 9.8 万元</strong></td>
+                  <td>明确要求编程接口、师资培训与两年质保</td>
+                </tr>
+                <tr>
+                  <td><strong>家庭侧试点</strong><br/><span style="font-size:13px;color:var(--ink-3);">拾光 S1 / 保洁员 [12-15]</span></td>
+                  <td>光谷人才公寓百台测试<br/>目标价 <strong class="mono">10万</strong>（现成本 ~20万）</td>
+                  <td>按家政 50 元/时算需 2,000 小时回本，普及预计 2028–2030</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-accent" style="padding:16px 20px;">
+            <strong style="color:var(--accent); font-size:17px;">供给痛点（机会所在）：</strong>
+            <span style="font-size:16px; color:var(--ink-2);">大厂（科沃斯、海尔、拾光 S1）演示收拾桌面但<strong>设备昂贵且不开放</strong>；普通桌面臂硬件降价但缺少<strong>完整任务闭环与复现资料</strong>。</span>
+          </div>
+        </div>
+
+        <!-- Right: Policy Timeline -->
+        <div class="card">
+          <div class="card-title">
+            <span>2025–2026 政策通道：教育侧全面打开，家庭侧谨慎靠后</span>
+            <span class="badge badge-blue">政策利好</span>
+          </div>
+          <div class="timeline-policy">
+            <div class="policy-item">
+              <div class="policy-date">2025.03<br/>2026.03</div>
+              <div class="policy-text"><strong>国家顶层定调：</strong>「具身智能」首次写入《政府工作报告》并纳入「十五五」规划纲要，长期投入方向明确 [21]。</div>
+            </div>
+            <div class="policy-item">
+              <div class="policy-date">2026.02</div>
+              <div class="policy-text"><strong>标准体系落地：</strong>工信部标委会发布《人形机器人与具身智能标准体系（2026版）》，评测与验收开始有据可依 [21]。</div>
+            </div>
+            <div class="policy-item">
+              <div class="policy-date">2026.04</div>
+              <div class="policy-text"><strong>五部门教育行动：</strong>教育部等五部门印发《“人工智能+教育”行动计划》（教科信〔2026〕1号），推动 AI 课程与实验基地建设 [22]。</div>
+            </div>
+            <div class="policy-item">
+              <div class="policy-date">2026.06–09</div>
+              <div class="policy-text"><strong>省级团标与课堂普及：</strong>江苏发布全国首个中小学 AI 实验室配置团标（含「具身智能」实践模块），9 月全省中小学全面开课 [23]。</div>
+            </div>
+            <div class="policy-item caution">
+              <div class="policy-date">2026.06</div>
+              <div class="policy-text"><strong>家庭落地审慎：</strong>工信部、国资委「实景实训」优先工厂、医院、便利店，家庭场景仍排在靠后位置 [15]。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="opp-grid">
+        <div class="opp-box">
+          <h4>1. 教育采购真实需求</h4>
+          <p>桌面整理结果肉眼可判，天然适合作为具身智能课程实验与教学演示任务。</p>
+        </div>
+        <div class="opp-box">
+          <h4>2. 开源硬件显著降低门槛</h4>
+          <p>LeRobot + SO-ARM101 开源生态大幅压低硬件成本，普通高校课设与创客均可负担。</p>
+        </div>
+        <div class="opp-box">
+          <h4>3. 填补「可复现小闭环」空位</h4>
+          <p>避开尚不成熟的通用家务难题，专注把规整桌面的「识别—抓取—归位」做稳做透。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <div class="footer-source">数据来源：《桌面整理机械臂市场调研报告（修改版）》3.1、3.3、3.5、4.1 节；引用 [9-15]、[21-23]</div>
+      <div class="footer-page">03 / 13</div>
+    </div>
+  </div>
+</body>
+</html>

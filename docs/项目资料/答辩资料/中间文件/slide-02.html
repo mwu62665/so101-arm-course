@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>Slide 02 · 行业背景与市场位置</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .top-kpis {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .kpi-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 22px 24px;
+    }
+    .kpi-card.highlight {
+      border-top: 4px solid var(--accent);
+    }
+    .mid-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 26px;
+      flex: 1;
+      min-height: 0;
+    }
+    .bar-row {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 18px;
+    }
+    .bar-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .bar-track {
+      height: 22px;
+      background: var(--surface-alt);
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .bar-fill {
+      height: 100%;
+      border-radius: 3px;
+    }
+    .bar-note {
+      font-size: 14px;
+      color: var(--ink-3);
+    }
+  </style>
+</head>
+<body>
+  <div class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <div class="kicker"><span class="kicker-dot"></span>01 // INDUSTRY & MARKET POSITION</div>
+        <h1 class="slide-title">大盘清洁主导、操作型尚处早期，「具身智能+教育」增速最快</h1>
+      </div>
+      <div class="header-right">桌面整理机械臂市场调研<br/>多口径并列 · 不强行加总</div>
+    </div>
+
+    <div class="slide-body">
+      <div class="top-kpis">
+        <div class="kpi-card">
+          <div class="kpi-value">$284.6亿</div>
+          <div class="kpi-label">2026 全球家庭服务机器人</div>
+          <div class="kpi-sub">出货约 6,420 万台，中国占 41.5%；清洁类仍贡献约 62.3% 规模 [1]</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-value red">0.7%</div>
+          <div class="kpi-label">家庭服务人形潜在渗透率</div>
+          <div class="kpi-sub">2026 出货约 48.6 万台（以目标适配家庭为分母），“会抓取整理”仍在早期 [4]</div>
+        </div>
+        <div class="kpi-card highlight">
+          <div class="kpi-value blue">$47.2亿</div>
+          <div class="kpi-label">2025 全球具身智能教育市场</div>
+          <div class="kpi-sub">协作机械臂与仿生教具合计占 28.4%（约 $13.4 亿），CR5 约 61.2% [7]</div>
+        </div>
+        <div class="kpi-card highlight">
+          <div class="kpi-value ok">&gt;20×</div>
+          <div class="kpi-label">越疆具身智能业务同比增速</div>
+          <div class="kpi-sub">2026H1 由 211 万增至 4,523 万元；同期四轴协作臂仅增 5.1% [8]</div>
+        </div>
+      </div>
+
+      <div class="mid-grid">
+        <div class="card">
+          <div class="card-title">
+            <span>细分赛道体量与增速对比（不同机构口径并列）</span>
+            <span class="badge badge-blue">口径透明</span>
+          </div>
+          <div style="margin-top:8px;">
+            <div class="bar-row">
+              <div class="bar-meta">
+                <span>全球家用机器人（GM Insights 口径，2026E）</span>
+                <span class="mono">$175 亿 · CAGR 19.2%</span>
+              </div>
+              <div class="bar-track"><div class="bar-fill" style="width:92%; background:#94A3B8;"></div></div>
+              <div class="bar-note">2025 约 $147 亿 → 2035 约 $850 亿，宽口径含陪伴/安防/庭院 [2]</div>
+            </div>
+
+            <div class="bar-row">
+              <div class="bar-meta">
+                <span>全球具身智能教育市场（IIM 口径，2025）</span>
+                <span class="mono" style="color:var(--accent);">$47.2 亿（教具臂 ~28.4%）</span>
+              </div>
+              <div class="bar-track"><div class="bar-fill" style="width:52%; background:var(--accent);"></div></div>
+              <div class="bar-note">最贴近本项目的教育参照；中金测算国内高中及以上 2030E 中性需求 67 亿元/年 [7]</div>
+            </div>
+
+            <div class="bar-row">
+              <div class="bar-meta">
+                <span>全球桌面机械臂（LP Information 口径，2025）</span>
+                <span class="mono">$8.93 亿 · CAGR 8.1%</span>
+              </div>
+              <div class="bar-track"><div class="bar-fill" style="width:24%; background:#0F766E;"></div></div>
+              <div class="bar-note">2031E 约 $14.25 亿；含教育用协作臂与轻工业小臂 [6]</div>
+            </div>
+
+            <div class="bar-row" style="margin-bottom:0;">
+              <div class="bar-meta">
+                <span>全球桌面机械臂（PW Consulting 口径，2025）</span>
+                <span class="mono">$3.48 亿 · CAGR 8.8%</span>
+              </div>
+              <div class="bar-track"><div class="bar-fill" style="width:12%; background:#475569;"></div></div>
+              <div class="bar-note">2032E 约 $6.27 亿；窄口径桌面臂小而稳，增速低于 10% [5]</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <span>品类定位：桌面整理机械臂处在什么位置？</span>
+            <span class="badge badge-gray">四类边界</span>
+          </div>
+          <table class="data-table" style="font-size:16px;">
+            <thead>
+              <tr>
+                <th style="width:28%;">相关品类</th>
+                <th>特征与任务范围</th>
+                <th style="width:22%;">与本项目关系</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>扫地 / 擦窗机</strong></td>
+                <td>会移动清洁地面，但不抓取、不处理桌面物品</td>
+                <td><span class="badge badge-gray">不计入</span></td>
+              </tr>
+              <tr>
+                <td><strong>普通桌面机械臂</strong></td>
+                <td>6 轴通用硬件底座，未绑定具体生活任务</td>
+                <td><span class="badge badge-gray">硬件底座</span></td>
+              </tr>
+              <tr class="highlight-row">
+                <td style="color:var(--accent);"><strong>桌面整理机械臂</strong></td>
+                <td>视觉识别 + 抓取 + 按类归位完整任务闭环</td>
+                <td><span class="badge badge-blue">本项目对象</span></td>
+              </tr>
+              <tr>
+                <td><strong>家庭通用机器人</strong></td>
+                <td>移动双臂全能家务，桌面整理仅为其子能力</td>
+                <td><span class="badge badge-amber">远期参照</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="conclusion-bar">
+        <span class="tag">KEY FINDING</span>
+        <span>桌面整理尚无独立统计口径，介于教学桌面臂与家庭服务机器人之间：短期价值在<strong>教育、开发者与类家庭实验</strong>，长期想象在家务机器人。</span>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <div class="footer-source">数据来源：《桌面整理机械臂市场调研报告（修改版）》3.1 节；引用 [1] IIM、[2] GM Insights、[4] IIM、[5] PW Consulting、[6] LP Information、[7] IIM/中金、[8] 越疆 2026 中报</div>
+      <div class="footer-page">02 / 13</div>
+    </div>
+  </div>
+</body>
+</html>

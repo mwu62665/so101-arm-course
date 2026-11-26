@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>Slide 04 · 技术现状与能力边界</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .bench-list {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      margin-top: 8px;
+    }
+    .bench-item {
+      background: var(--surface-alt);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 18px 22px;
+    }
+    .bench-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 12px;
+    }
+    .bench-name {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .bench-meta {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--ink-3);
+    }
+    .dual-bar {
+      display: grid;
+      grid-template-columns: 165px 1fr 78px;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 16px;
+    }
+    .dual-bar:last-child { margin-bottom: 0; }
+    .track {
+      height: 18px;
+      background: #E2E8F0;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .fill { height: 100%; border-radius: 3px; }
+    .val-num {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 18px;
+      text-align: right;
+    }
+    .insight-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      height: 100%;
+    }
+    .boundary-box {
+      flex: 1;
+      border-radius: 6px;
+      padding: 22px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <div class="kicker"><span class="kicker-dot"></span>03 // TECHNICAL BENCHMARKS & REALITY CHECK</div>
+        <h1 class="slide-title">平面归位已基本可行，精细叠放与真实家庭泛化仍是行业硬瓶颈</h1>
+      </div>
+      <div class="header-right">不夸大演示级能力<br/>用论文与基准数据界定任务边界</div>
+    </div>
+
+    <div class="slide-body">
+      <div class="grid-60-40" style="flex:1; min-height:0;">
+        <!-- Left: Benchmark Data Chart -->
+        <div class="card">
+          <div class="card-title">
+            <span>2025–2026 代表性操作基准成功率对比</span>
+            <span class="badge badge-blue">仿真 vs 真机/真实家庭</span>
+          </div>
+
+          <div class="bench-list">
+            <div class="bench-item">
+              <div class="bench-head">
+                <span class="bench-name">① 平面桌面重排（首尔大学 · IEEE RA-L 2025）</span>
+                <span class="bench-meta">未涉及堆叠 [19]</span>
+              </div>
+              <div class="dual-bar">
+                <span style="color:var(--ink-3);">仿真环境</span>
+                <div class="track"><div class="fill" style="width:88.5%; background:#94A3B8;"></div></div>
+                <span class="val-num" style="color:var(--ink-2);">88.5%</span>
+              </div>
+              <div class="dual-bar">
+                <span style="color:var(--ok); font-weight:700;">真机整理</span>
+                <div class="track"><div class="fill" style="width:85%; background:var(--ok);"></div></div>
+                <span class="val-num" style="color:var(--ok);">85.0%</span>
+              </div>
+            </div>
+
+            <div class="bench-item">
+              <div class="bench-head">
+                <span class="bench-name">② 关系性重排（北大董豪团队 Imagine2Act · ICRA 2026）</span>
+                <span class="bench-meta">插花/插盘/叠杯 6 项 [17,18]</span>
+              </div>
+              <div class="dual-bar">
+                <span style="color:var(--ink-3);">仿真 (RLBench)</span>
+                <div class="track"><div class="fill" style="width:79%; background:#94A3B8;"></div></div>
+                <span class="val-num" style="color:var(--ink-2);">79.0%</span>
+              </div>
+              <div class="dual-bar">
+                <span style="color:var(--accent); font-weight:700;">真机平均</span>
+                <div class="track"><div class="fill" style="width:68%; background:var(--accent);"></div></div>
+                <span class="val-num" style="color:var(--accent);">68.0%</span>
+              </div>
+            </div>
+
+            <div class="bench-item">
+              <div class="bench-head">
+                <span class="bench-name">③ 实验室仿真 → 真实家庭落差（Stanford AI Index 2026）</span>
+                <span class="bench-meta">环境泛化悬崖 [15]</span>
+              </div>
+              <div class="dual-bar">
+                <span style="color:var(--ink-3);">仿真完成率</span>
+                <div class="track"><div class="fill" style="width:89.4%; background:#94A3B8;"></div></div>
+                <span class="val-num" style="color:var(--ink-2);">89.4%</span>
+              </div>
+              <div class="dual-bar">
+                <span style="color:var(--signal); font-weight:700;">真实家庭</span>
+                <div class="track"><div class="fill" style="width:12%; background:var(--signal);"></div></div>
+                <span class="val-num" style="color:var(--signal);">12.0%</span>
+              </div>
+            </div>
+
+            <div class="bench-item">
+              <div class="bench-head">
+                <span class="bench-name">④ 人形家务仿真基准（BiGym 2.0 · 2026）</span>
+                <span class="bench-meta">Unitree G1 · 20 项任务 [20]</span>
+              </div>
+              <div class="dual-bar">
+                <span style="color:var(--ink-2);">9 任务均值 (ACT)</span>
+                <div class="track"><div class="fill" style="width:68%; background:var(--accent);"></div></div>
+                <span class="val-num" style="color:var(--accent);">68.0%</span>
+              </div>
+              <div class="dual-bar">
+                <span style="color:var(--signal); font-weight:700;">叠积木 (ACT)</span>
+                <div class="track"><div class="fill" style="width:2%; background:var(--signal);"></div></div>
+                <span class="val-num" style="color:var(--signal);">&lt; 1.0%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Engineering Implications -->
+        <div class="insight-stack">
+          <div class="boundary-box" style="background:var(--ok-soft); border:1px solid var(--ok-border); border-left:5px solid var(--ok);">
+            <div class="card-title" style="color:var(--ok); margin-bottom:10px;">
+              <span>技术可行区（本项目核心范围）</span>
+              <span class="badge badge-ok">FEASIBLE</span>
+            </div>
+            <ul class="clean-list ok-dots">
+              <li><strong>规整桌面平面归位：</strong>首尔大学研究验证平面重排真机可达 85%，结构化场景下视觉检测与抓取稳定可控。</li>
+              <li><strong>模仿学习 ACT 有效：</strong>BiGym 2.0 显示 ACT 在常规操作均值达 68%，适合单臂少量示教下的泛化抓取。</li>
+            </ul>
+          </div>
+
+          <div class="boundary-box" style="background:var(--signal-soft); border:1px solid var(--signal-border); border-left:5px solid var(--signal);">
+            <div class="card-title" style="color:var(--signal); margin-bottom:10px;">
+              <span>技术瓶颈区（本项目边界控制）</span>
+              <span class="badge badge-red">BOUNDARY</span>
+            </div>
+            <ul class="clean-list red-dots">
+              <li><strong>精密几何约束：</strong>窄槽插盘、叠杯、叠积木等毫米级容差任务真机不到七成甚至低于 1%，<strong>本项目改用宽松目标区域归位</strong>。</li>
+              <li><strong>开放家庭泛化：</strong>仿真到真实家庭成功率从 89.4% 骤降至 12%，<strong>不承诺通用家庭部署</strong>，聚焦实验室规整桌面闭环。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="conclusion-bar">
+        <span class="tag">DESIGN IMPACT</span>
+        <span>行业最常见的问题是把「演示级能力」包装成「产品级承诺」——本项目以学术基准为尺，主动将目标收敛到<strong>规整桌面 · 宽松归位 · 可复现闭环</strong>。</span>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <div class="footer-source">数据来源：《桌面整理机械臂市场调研报告（修改版）》3.4 节；引用 [15] Stanford AI Index 2026、[17-18] Imagine2Act (ICRA 2026)、[19] RA-L 2025、[20] BiGym 2.0</div>
+      <div class="footer-page">04 / 13</div>
+    </div>
+  </div>
+</body>
+</html>

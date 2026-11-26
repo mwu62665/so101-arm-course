@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SO-ARM101 具身智能桌面机械臂 · 开题答辩演示</title>
+  <style>
+    :root {
+      --bg: #0B1120;
+      --bar: #111827;
+      --border: #1F2937;
+      --text: #F8FAFC;
+      --muted: #94A3B8;
+      --accent: #3B82F6;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Stage */
+    #stage-wrap {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 16px;
+    }
+
+    #slide-scaler {
+      width: 1920px;
+      height: 1080px;
+      transform-origin: center center;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
+      border-radius: 4px;
+      overflow: hidden;
+      background: #F6F8FA;
+      flex-shrink: 0;
+    }
+
+    #slide-frame {
+      width: 1920px;
+      height: 1080px;
+      border: none;
+      display: block;
+    }
+
+    /* Speaker Notes Drawer */
+    #notes-panel {
+      height: 0;
+      overflow: hidden;
+      background: #0F172A;
+      border-top: 1px solid var(--border);
+      transition: height 0.2s ease;
+    }
+    #notes-panel.open {
+      height: 190px;
+      overflow-y: auto;
+    }
+    .notes-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      gap: 20px;
+    }
+    .notes-label {
+      font-family: Consolas, monospace;
+      font-size: 13px;
+      color: var(--accent);
+      font-weight: 700;
+      white-space: nowrap;
+      padding-top: 3px;
+    }
+    #notes-text {
+      font-size: 16px;
+      line-height: 1.65;
+      color: #E2E8F0;
+    }
+
+    /* Control Bar */
+    #controls {
+      height: 54px;
+      background: var(--bar);
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      font-size: 14px;
+      flex-shrink: 0;
+      user-select: none;
+    }
+
+    .ctrl-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    button {
+      background: #1E293B;
+      color: var(--text);
+      border: 1px solid #334155;
+      border-radius: 5px;
+      padding: 6px 13px;
+      font-size: 13px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    button:hover { background: #334155; border-color: #475569; }
+    button.active { background: #1D4ED8; border-color: #3B82F6; }
+
+    #slide-select {
+      background: #1E293B;
+      color: var(--text);
+      border: 1px solid #334155;
+      border-radius: 5px;
+      padding: 6px 10px;
+      font-size: 13px;
+      font-family: inherit;
+      max-width: 320px;
+    }
+
+    .counter {
+      font-family: Consolas, monospace;
+      color: var(--muted);
+      font-size: 14px;
+      min-width: 68px;
+      text-align: center;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div id="stage-wrap">
+    <div id="slide-scaler">
+      <iframe id="slide-frame" src="slide-01.html" title="开题答辩幻灯片"></iframe>
+    </div>
+  </div>
+
+  <div id="notes-panel">
+    <div class="notes-inner">
+      <div class="notes-label">SPEAKER NOTES</div>
+      <div id="notes-text"></div>
+    </div>
+  </div>
+
+  <div id="controls">
+    <div class="ctrl-group">
+      <button id="btn-prev" title="上一页 (←)">← 上一页</button>
+      <span class="counter" id="counter">01 / 13</span>
+      <button id="btn-next" title="下一页 (→ / Space)">下一页 →</button>
+      <select id="slide-select" aria-label="跳转页面"></select>
+    </div>
+    <div class="ctrl-group">
+      <span class="hint">快捷键：←/→ 翻页 · N 讲稿备注 · F 全屏</span>
+      <button id="btn-notes">讲稿备注 (N)</button>
+      <button id="btn-print" onclick="window.open('print.html', '_blank')">打印 / 导出 PDF</button>
+      <button id="btn-full">全屏 (F)</button>
+    </div>
+  </div>
+
+  <script>
+    const SLIDES = [
+      {
+        file: "slide-01.html",
+        title: "01 · 封面：SO-ARM101 具身智能桌面机械臂",
+        notes: "各位老师好！我们是电子信息工程第十四组。今天向各位汇报我们的课程设计开题方案：基于开源 LeRobot 架构与 SO-ARM101 机械臂，面向生活化场景的桌面杯具与餐具归位整理系统。我们的目标是在千元以内（实际物料 925.55 元）的有限成本下，做出一个可复现、肉眼可验证的“识别—抓取—归位”完整闭环。"
+      },
+      {
+        file: "slide-02.html",
+        title: "02 · 行业背景与市场位置",
+        notes: "在动手选型前，我们先做了行业调研。2026 年全球家庭服务机器人市场约 284.6 亿美元、出货 6,420 万台，但扫地擦窗等清洁类仍占 62.3%，真正“会抓取、会整理”的操作型机器人渗透率极低。桌面机械臂本身是亿美元级的稳健市场，但增长最快的是“具身智能+教育”方向，越疆科技 2026 上半年具身智能业务同比增长超过 20 倍，说明低成本教学与实验闭环是当前最现实的切入点。"
+      },
+      {
+        file: "slide-03.html",
+        title: "03 · 需求验证与政策窗口",
+        notes: "从买单方看，家庭通用家务机器人目前单台成本约 20 万元，尚处在人才公寓和种子用户试用阶段；而高校和中小学已经有真实的具身智能教学采购案例（如武大 18.84 万、矿大 15 万、苏州中小学 9.8 万）。同时 2025—2026 年“具身智能”连续写入国家规划与五部门“人工智能+教育”行动计划。桌面整理恰好切中“大厂演示贵且封闭、学校缺低成本可复现闭环”的空位。"
+      },
+      {
+        file: "slide-04.html",
+        title: "04 · 技术发展现状与能力边界",
+        notes: "为了不画大饼，我们调研了近两年的代表性学术基准：首尔大学的平面桌面整理真机成功率约 85%，说明平面归位可行；但北大董豪团队 ICRA 2026 的 Imagine2Act 在插花、插盘、叠杯等关系性重排上真机平均成功率仅约 68%；BiGym 2.0 中模仿学习 ACT 在叠积木任务上成功率甚至低于 1%；斯坦福 AI Index 2026 也指出仿真到真实家庭成功率从 89.4% 骤降至 12%。这为我们收敛任务边界提供了直接依据。"
+      },
+      {
+        file: "slide-05.html",
+        title: "05 · 应用场景筛选与选题意义",
+        notes: "结合行业现状与单臂硬件条件，我们按桌面结构化、物体轻小、闭环完整、单臂可做四条标准对比了三个候选场景：小零件装配精度要求过高，风险太大；纯方块分拣生活化叙事偏弱；因此我们选定“桌面杯具/餐具归位整理”作为主场景——它既对应马德里卡洛斯三世大学 ADAM 面向老年照护的真实需求，也是 Imagine2Act 学术难点的简化可落地版本，且与 SO-ARM101 开源生态高度契合。"
+      },
+      {
+        file: "slide-06.html",
+        title: "06 · 选定场景与任务闭环定义",
+        notes: "具体任务非常清晰：在规整桌面上摆放杯具与餐盘，机械臂完成“识别→抓取→放置到指定宽松归位区”的完整闭环，肉眼即可判定成败。按行业四级难度划分，我们精准卡位在一二级（单物搬运与分类归位），把餐盘和杯具放到宽松目标区域，诚实避开当前真机成功率极低的三级窄槽插接/精密叠放和四级通用家务。"
+      },
+      {
+        file: "slide-07.html",
+        title: "07 · 系统总体架构（LeRobot 原生）",
+        notes: "这是我们的四层系统架构，基于 LeRobot 原生架构，由上位机通过 USB 直连舵机驱动板与双路相机统一完成闭环：顶层由轻量 LLM 将自然语言解析为结构化任务指令；中间层在上位机按物体难度分流至“YOLO+程序化抓取”或“ACT 模仿学习”；感知层采用双路 1080P USB 摄像头；执行层为 6 自由度 SO-ARM101 机械臂，舵机关节角与双相机画面形成实时观测闭环。"
+      },
+      {
+        file: "slide-08.html",
+        title: "08 · 核心论证：双路线抓取分工",
+        notes: "各位老师可能会问：为什么同时用程序化抓取和 ACT 模仿学习？这不是技术堆砌，而是按物体难度各取所长：形状规则、坐标可写死的物体交给 YOLO+程序化轨迹，零训练、稳且快，这是我们的保底成果（F2）；杯子等抓握位姿敏感、姿态多样的物体写不死规则，交给 ACT 模仿学习，利用单臂“人手掰臂+舵机反馈+同步相机帧”采集 50–100 条示教，实现视觉泛化抓取，这是项目的核心胜负手（F3）。"
+      },
+      {
+        file: "slide-09.html",
+        title: "09 · 顶层 LLM 轻量指令解析边界",
+        notes: "在语言交互层，我们明确只做“轻量指令解析”，不碰图像、不涉及 VLM 或 VLA。LLM 仅负责把“先收红杯子，再放餐盘”翻译成受约束的 JSON 任务队列，并在词表外拒绝执行、参数缺失时反问。它不直接生成关节轨迹，也不保证物理抓取成败，所有输出必须经过结构化校验，防止大模型幻觉直接作用到硬件上。"
+      },
+      {
+        file: "slide-10.html",
+        title: "10 · 硬件选型与预算管理",
+        notes: "课程报销上限是 1,000 元，小组 10 人每人垫资 100 元已收齐。我们已于 11 月 25 日完成全部核心物料下单，实际支出 925.55 元，结余 74.45 元用于后续线材与道具：其中 SO-ARM101 主臂套件 690 元（含 6 个飞特 STS3215 舵机、驱动板与可调电源）、带夹爪打印件 80 元、双路 1080P 无畸变 USB 摄像头 155.55 元。整套方案不含上位机算力平台与深度相机，真正把门槛压到了千元以内。"
+      },
+      {
+        file: "slide-11.html",
+        title: "11 · 功能锚点与项目透明管理机制",
+        notes: "为了防止工期失控，我们按“达成的功能”设了 F0 到 F5 六个硬锚点：F0 本体可用是生死线，F2 程序化抓取是保底成果，F3 ACT 模仿学习是核心胜负手，F4 与 F5 完成最终闭环验收。在团队协作上，我们建立了完整的透明公示机制：通过进度公示与阻塞看板每周同步状态、资金管理与采购清单账实公开、变更记录与 Git 保证架构决策可回溯，所有代码与数据集开源归档全员共享。"
+      },
+      {
+        file: "slide-12.html",
+        title: "12 · 团队分工（10人规范配置）与风险应对",
+        notes: "按照课程设计的规范要求，我们 10 人小组划分了六大岗位：经理由毋涵担任并兼任开发岗，负责本体安装调试与 LeRobot/ACT 核心开发；核心开发组共 4 人，除毋涵外还有陈国豪（YOLO 视觉与标定）、巴昱霖（顶层 LLM 指令解析）和肖继涵（结构建模）；非技术支持岗位由王亦凡（秘书）、孙源坤（财务）、孙瀚文与鲁艺恒（市场）、刘镇与王宁博（质量控制）承担。针对单臂示教、几何约束、ACT 泛化与场景边界四大工程风险，我们也提前制定了对应的降级与验收方案。"
+      },
+      {
+        file: "slide-13.html",
+        title: "13 · 总结与致谢",
+        notes: "总结我们的开题方案：场景上有真实需求和学术支撑，技术上用双路线实现“保底稳、上限高”，成本上 925.55 元完成全套硬件下单，边界上如实说明不做精密窄槽插接和通用家庭部署。以上是第十四组的开题汇报，恳请各位老师批评指正！"
+      }
+    ];
+
+    let current = 0;
+    const frame = document.getElementById("slide-frame");
+    const scaler = document.getElementById("slide-scaler");
+    const stageWrap = document.getElementById("stage-wrap");
+    const counter = document.getElementById("counter");
+    const select = document.getElementById("slide-select");
+    const notesPanel = document.getElementById("notes-panel");
+    const notesText = document.getElementById("notes-text");
+    const btnNotes = document.getElementById("btn-notes");
+
+    SLIDES.forEach((s, idx) => {
+      const opt = document.createElement("option");
+      opt.value = idx;
+      opt.textContent = s.title;
+      select.appendChild(opt);
+    });
+
+    function fitStage() {
+      const rect = stageWrap.getBoundingClientRect();
+      const pad = 24;
+      const scale = Math.min((rect.width - pad) / 1920, (rect.height - pad) / 1080);
+      scaler.style.transform = `scale(${scale})`;
+    }
+
+    function go(idx) {
+      current = Math.max(0, Math.min(SLIDES.length - 1, idx));
+      frame.src = SLIDES[current].file;
+      counter.textContent = `${String(current + 1).padStart(2, "0")} / ${SLIDES.length}`;
+      select.value = current;
+      notesText.textContent = SLIDES[current].notes;
+      location.hash = `slide-${current + 1}`;
+    }
+
+    document.getElementById("btn-prev").onclick = () => go(current - 1);
+    document.getElementById("btn-next").onclick = () => go(current + 1);
+    select.onchange = (e) => go(Number(e.target.value));
+
+    btnNotes.onclick = () => {
+      notesPanel.classList.toggle("open");
+      btnNotes.classList.toggle("active");
+      setTimeout(fitStage, 220);
+    };
+
+    document.getElementById("btn-full").onclick = () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    };
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") {
+        e.preventDefault();
+        go(current + 1);
+      } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
+        e.preventDefault();
+        go(current - 1);
+      } else if (e.key.toLowerCase() === "n") {
+        btnNotes.click();
+      } else if (e.key.toLowerCase() === "f") {
+        document.getElementById("btn-full").click();
+      }
+    });
+
+    window.addEventListener("resize", fitStage);
+    const hashMatch = location.hash.match(/slide-(\d+)/);
+    go(hashMatch ? Number(hashMatch[1]) - 1 : 0);
+    fitStage();
+  </script>
+</body>
+</html>

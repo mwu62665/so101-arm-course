@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>Slide 08 · 双路线抓取分工</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .route-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .route-head {
+      padding: 20px 26px;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .route-head.teal { background: var(--teal); }
+    .route-head.blue { background: var(--accent); }
+    .route-head h2 { font-size: 24px; font-weight: 700; }
+    .route-body {
+      padding: 24px 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      flex: 1;
+    }
+    .flow-chips {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      background: var(--surface-alt);
+      padding: 14px 16px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .chip {
+      background: #fff;
+      border: 1px solid var(--border-strong);
+      padding: 5px 11px;
+      border-radius: 4px;
+    }
+    .chip-arr { color: var(--accent); font-family: var(--font-mono); font-weight: 800; }
+    .meta-kv {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: auto;
+    }
+    .kv-box {
+      background: var(--surface-alt);
+      border-radius: 5px;
+      padding: 12px 14px;
+    }
+    .kv-box .k { font-size: 13px; color: var(--ink-3); font-family: var(--font-mono); }
+    .kv-box .v { font-size: 17px; font-weight: 700; color: var(--ink); margin-top: 4px; }
+  </style>
+</head>
+<body>
+  <div class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <div class="kicker"><span class="kicker-dot"></span>07 // CORE ARGUMENT · DUAL-ROUTE GRASPING</div>
+        <h1 class="slide-title">为什么两套抓取路线都要？按物体难度分工，兼顾稳健与泛化</h1>
+      </div>
+      <div class="header-right">不是技术堆砌 · 各取所长<br/>基础闭环 (F2) + 泛化核心 (F3)</div>
+    </div>
+
+    <div class="slide-body">
+      <div class="grid-2" style="flex:1; min-height:0;">
+        <!-- Route A -->
+        <div class="route-card">
+          <div class="route-head teal">
+            <div>
+              <div class="mono" style="font-size:13px; opacity:0.85;">ROUTE A // PROGRAMMATIC GRASPING</div>
+              <h2>路线 A：YOLO + 程序化抓取</h2>
+            </div>
+            <span class="badge" style="background:rgba(255,255,255,0.2); color:#fff; border:1px solid rgba(255,255,255,0.4);">基础闭环 · F2</span>
+          </div>
+          <div class="route-body">
+            <div class="flow-chips">
+              <span class="chip">双相机图像</span><span class="chip-arr">→</span>
+              <span class="chip">YOLO 检测框</span><span class="chip-arr">→</span>
+              <span class="chip">手眼标定坐标</span><span class="chip-arr">→</span>
+              <span class="chip">预设抓取轨迹</span>
+            </div>
+            <ul class="clean-list" style="gap:18px;">
+              <li style="font-size:20px;"><strong>适用物体：</strong>位置明确、外形规则、抓握姿态对方向不敏感的目标（如规则餐盘/垫块/固定位姿物体）。</li>
+              <li style="font-size:20px;"><strong>核心优势：</strong><strong>零训练成本、响应快、可解释性强</strong>，只要手眼标定误差落在夹爪容差内即可高稳定性复现。</li>
+              <li style="font-size:20px;"><strong>为什么不能只靠它：</strong>杯具带手柄、姿态多样、同类别外形差异大，硬编码几何规则极易在偏转或遮挡时抓空。</li>
+            </ul>
+            <div class="meta-kv">
+              <div class="kv-box">
+                <div class="k">TRAINING DATA</div>
+                <div class="v">零示教（仅需 YOLO 权重）</div>
+              </div>
+              <div class="kv-box">
+                <div class="k">EXECUTION MODULE</div>
+                <div class="v">视觉检测 + 手眼标定 + 轨迹规划</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Route B -->
+        <div class="route-card">
+          <div class="route-head blue">
+            <div>
+              <div class="mono" style="font-size:13px; opacity:0.85;">ROUTE B // IMITATION LEARNING (ACT)</div>
+              <h2>路线 B：单臂示教 + ACT 模仿学习</h2>
+            </div>
+            <span class="badge" style="background:rgba(255,255,255,0.2); color:#fff; border:1px solid rgba(255,255,255,0.4);">泛化核心 · F3</span>
+          </div>
+          <div class="route-body">
+            <div class="flow-chips">
+              <span class="chip">人手掰臂示教</span><span class="chip-arr">→</span>
+              <span class="chip">舵机反馈+相机帧</span><span class="chip-arr">→</span>
+              <span class="chip">ACT 策略训练</span><span class="chip-arr">→</span>
+              <span class="chip">端到端泛化抓取</span>
+            </div>
+            <ul class="clean-list" style="gap:18px;">
+              <li style="font-size:20px;"><strong>适用物体：</strong>抓取位姿敏感、摆放角度多变的杯具等生活化物体——难以通过固定几何规则参数化，直接从人类示教学习动作序列。</li>
+              <li style="font-size:20px;"><strong>单臂无手柄采集方案：</strong>预算约束下不买主从双臂，采用<strong>「单臂两用」</strong>：断力矩后人手掰臂，同步读取 6 舵机关节角与双相机图像。</li>
+              <li style="font-size:20px;"><strong>示教规模与验收：</strong>采集约 <strong>50–100 条</strong>高质量示教；验收标准为对<strong>未示教过的杯子摆放位置</strong>实现自主抓取泛化。</li>
+            </ul>
+            <div class="meta-kv">
+              <div class="kv-box">
+                <div class="k">KEY GATE</div>
+                <div class="v" style="color:var(--accent);">组装后首做「单臂两用」Go/No-Go</div>
+              </div>
+              <div class="kv-box">
+                <div class="k">EXECUTION MODULE</div>
+                <div class="v">LeRobot 采集 + ACT 训练部署</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="conclusion-bar">
+        <span class="tag">ENGINEERING LOGIC</span>
+        <span>工程风险对冲设计：<strong>F2 程序化抓取确保基础闭环稳健落地</strong>；组装后优先验证单臂示教读数平滑性，通过则重点推进 <strong>F3 ACT 模仿学习泛化</strong>。</span>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <div class="footer-source">资料来源：《应用场景调研.md》第 3.3 节、《项目规划.md》第 5.1–5.2 节（单臂两用 Go/No-Go 验证机制）</div>
+      <div class="footer-page">08 / 13</div>
+    </div>
+  </div>
+</body>
+</html>

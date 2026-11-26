@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>SO-ARM101 开题答辩 PPT · 导出 PDF 打印版</title>
+  <style>
+    @page {
+      size: 1920px 1080px;
+      margin: 0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #1E293B;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      padding: 24px 0;
+      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+    .toolbar {
+      position: sticky;
+      top: 16px;
+      z-index: 100;
+      background: #0F172A;
+      color: #F8FAFC;
+      padding: 12px 24px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .toolbar button {
+      background: #1D4ED8;
+      color: #fff;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 5px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .page-slot {
+      width: 1920px;
+      height: 1080px;
+      background: #fff;
+      overflow: hidden;
+      page-break-after: always;
+      break-after: page;
+    }
+    .page-slot iframe {
+      width: 1920px;
+      height: 1080px;
+      border: none;
+      display: block;
+    }
+    @media print {
+      body { background: #fff; gap: 0; padding: 0; }
+      .toolbar { display: none; }
+      .page-slot { margin: 0; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <span>提示：点击打印后，目标打印机选「另存为 PDF」，勾选「背景图形」，边距选「无」。</span>
+    <button onclick="window.print()">打印 / 另存为 PDF</button>
+  </div>
+  <div id="pages"></div>
+  <script>
+    const container = document.getElementById("pages");
+    for (let i = 1; i <= 13; i++) {
+      const slot = document.createElement("div");
+      slot.className = "page-slot";
+      const ifr = document.createElement("iframe");
+      ifr.src = `slide-${String(i).padStart(2, "0")}.html`;
+      slot.appendChild(ifr);
+      container.appendChild(slot);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>Slide 06 · 选定场景与任务闭环</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .ladder-row {
+      display: grid;
+      grid-template-columns: 76px 190px 1fr 130px;
+      gap: 16px;
+      align-items: center;
+      padding: 16px 20px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .ladder-row.active {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      border-left: 6px solid var(--accent);
+    }
+    .ladder-row.out {
+      opacity: 0.72;
+      background: var(--surface-alt);
+    }
+    .lvl-tag {
+      font-family: var(--font-mono);
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--ink-3);
+    }
+    .ladder-row.active .lvl-tag { color: var(--accent); }
+    .lvl-title { font-size: 19px; font-weight: 700; color: var(--ink); }
+    .lvl-desc { font-size: 16px; color: var(--ink-2); }
+  </style>
+</head>
+<body>
+  <div class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <div class="kicker"><span class="kicker-dot"></span>05 // TARGET TASK & DIFFICULTY BOUNDARY</div>
+        <h1 class="slide-title">精准卡位 L1–L2 平面分类归位，形成肉眼可验的完整操作闭环</h1>
+      </div>
+      <div class="header-right">任务闭环定义 · 四级难度定位<br/>先做稳宽松归位，不承诺窄槽插接</div>
+    </div>
+
+    <div class="slide-body">
+      <!-- Top: Closed-loop SVG Flow -->
+      <div class="card" style="padding:22px 28px;">
+        <div class="card-title" style="margin-bottom:14px;">
+          <span>「桌面杯具 / 餐具归位整理」完整任务闭环（单臂）</span>
+          <span class="badge badge-blue">验收标准：目标物体全部归位且无倾倒掉落</span>
+        </div>
+        <svg viewBox="0 0 1720 175" width="100%" height="168" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#1D4ED8"/>
+            </marker>
+          </defs>
+          <!-- Step 1 -->
+          <rect x="8" y="20" width="290" height="126" rx="8" fill="#EFF6FF" stroke="#1D4ED8" stroke-width="2"/>
+          <text x="28" y="52" fill="#1D4ED8" font-family="Consolas, monospace" font-size="14" font-weight="700">STEP 01 // 指令下发</text>
+          <text x="28" y="84" fill="#0F172A" font-family="PingFang SC, Microsoft YaHei" font-size="21" font-weight="700">自然语言任务解析</text>
+          <text x="28" y="114" fill="#475569" font-family="PingFang SC, Microsoft YaHei" font-size="15">轻量 LLM → 结构化任务队列</text>
+          <text x="28" y="135" fill="#475569" font-family="PingFang SC, Microsoft YaHei" font-size="14">例：“把红杯放杯架，餐盘归位”</text>
+
+          <line x1="298" y1="83" x2="350" y2="83" stroke="#1D4ED8" stroke-width="2.5" marker-end="url(#arr)"/>
+
+          <!-- Step 2 -->
+          <rect x="358" y="20" width="290" height="126" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+          <text x="378" y="52" fill="#0F766E" font-family="Consolas, monospace" font-size="14" font-weight="700">STEP 02 // 视觉识别与定位</text>
+          <text x="378" y="84" fill="#0F172A" font-family="PingFang SC, Microsoft YaHei" font-size="21" font-weight="700">双相机 + YOLO 检测</text>
+          <text x="378" y="114" fill="#475569" font-family="PingFang SC, Microsoft YaHei" font-size="15">输出杯具/餐盘类别与像素坐标</text>
+          <text x="378" y="135" fill="#475569" font-family="PingFang SC, Microsoft YaHei" font-size="14">结合手眼标定估计桌面位姿</text>
+
+          <line x1="648" y1="83" x2="700" y2="83" stroke="#1D4ED8" stroke-width="2.5" marker-end="url(#arr)"/>
+
+          <!-- Step 3 -->
+          <rect x="708" y="20" width="310" height="126" rx="8" fill="#FFFFFF" stroke="#1D4ED8" stroke-width="2"/>
+          <text x="728" y="52" fill="#1D4ED8" font-family="Consolas, monospace" font-size="14" font-weight="700">STEP 03 // 双路线抓取</text>
+          <text x="728" y="84" fill="#0F172A" font-family="PingFang SC, Microsoft YaHei" font-size="21" font-weight="700">按物体难度分流执行</text>
+          <text x="728" y="114" fill="#475569" font-family="PingFang SC, Microsoft YaHei" font-size="15">规则物体 → 程序化预设轨迹</text>
+          <text x="728" y="135" fill="#475569" font-family="PingFang SC, Microsoft YaHei" font-size="14">姿态多样杯具 → ACT 模仿学习</text>
+
+          <line x1="1018" y1="83" x2="1070" y2="83" stroke="#1D4ED8" stroke-width="2.5" marker-end="url(#arr)"/>
+
+          <!-- Step 4 -->
+          <rect x="1078" y="20" width="290" height="126" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+          <text x="1098" y="52" fill="#0F766E" font-family="Consolas, monospace" font-size="14" font-weight="700">STEP 04 // 分区放置归位</text>
+          <text x="1098" y="84" fill="#0F172A" font-family="PingFang SC, Microsoft YaHei" font-size="21" font-weight="700">宽松目标区域摆放</text>
+          <text x="1098" y="114" fill="#475569" font-family="PingFang SC, Microsoft YaHei" font-size="15">杯子入杯架区 · 餐盘入归位区</text>
+          <text x="1098" y="135" fill="#475569" font-family="PingFang SC, Microsoft YaHei" font-size="14">降低几何容差敏感度</text>
+
+          <line x1="1368" y1="83" x2="1420" y2="83" stroke="#1D4ED8" stroke-width="2.5" marker-end="url(#arr)"/>
+
+          <!-- Step 5 -->
+          <rect x="1428" y="20" width="284" height="126" rx="8" fill="#ECFDF5" stroke="#047857" stroke-width="2"/>
+          <text x="1448" y="52" fill="#047857" font-family="Consolas, monospace" font-size="14" font-weight="700">STEP 05 // 闭环验收</text>
+          <text x="1448" y="84" fill="#0F172A" font-family="PingFang SC, Microsoft YaHei" font-size="21" font-weight="700">桌面整洁 · 肉眼可判</text>
+          <text x="1448" y="114" fill="#047857" font-family="PingFang SC, Microsoft YaHei" font-size="15">全部入区、无倾倒与掉落</text>
+          <text x="1448" y="135" fill="#475569" font-family="PingFang SC, Microsoft YaHei" font-size="14">支持多物体连续顺序整理</text>
+        </svg>
+      </div>
+
+      <!-- Bottom: 4-Level Difficulty Ladder -->
+      <div class="grid-60-40" style="flex:1; min-height:0;">
+        <div class="card" style="gap:16px;">
+          <div class="card-title" style="margin-bottom:0;">
+            <span>桌面整理四级任务难度与本项目卡位</span>
+            <span class="badge badge-blue">务实收敛</span>
+          </div>
+          <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:18px; padding:10px 0;">
+            <div class="ladder-row active">
+              <div class="lvl-tag">L1</div>
+              <div class="lvl-title">单物体定点搬运</div>
+              <div class="lvl-desc">单个杯具/规则物体从 A 点稳定抓放至 B 点</div>
+              <div><span class="badge badge-ok">基础闭环 (F2)</span></div>
+            </div>
+            <div class="ladder-row active">
+              <div class="lvl-tag">L2</div>
+              <div class="lvl-title">多类物品分区归位</div>
+              <div class="lvl-desc">按类别区分杯具与餐盘，连续归位至宽松目标区</div>
+              <div><span class="badge badge-blue">核心目标 (F3–F4)</span></div>
+            </div>
+            <div class="ladder-row" style="background:var(--amber-soft); border-color:var(--amber-border);">
+              <div class="lvl-tag" style="color:var(--amber);">L3</div>
+              <div class="lvl-title">精密叠放与窄槽插接</div>
+              <div class="lvl-desc">叠杯子、餐盘竖直插入窄槽（L2 跑通后视余力进阶挑战）</div>
+              <div><span class="badge badge-amber">进阶拓展（可选）</span></div>
+            </div>
+            <div class="ladder-row out">
+              <div class="lvl-tag">L4</div>
+              <div class="lvl-title">长程多任务通用家务</div>
+              <div class="lvl-desc">收桌—补水—取衣—叠衣连续跨场景移动操作</div>
+              <div><span class="badge badge-gray">远期研究</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-dark" style="justify-content:space-between;">
+          <div>
+            <div class="card-title">
+              <span>为什么这样划界？</span>
+            </div>
+            <ul class="clean-list" style="margin-top:16px; gap:18px;">
+              <li style="color:#CBD5E1;"><strong style="color:#fff;">规避几何约束失效：</strong>调研显示窄槽插盘与叠杯在顶会真机中平均仅 68%，在低成本单臂硬件上强攻 L3 失败率过高。</li>
+              <li style="color:#CBD5E1;"><strong style="color:#fff;">收敛为宽松归位区：</strong>先将杯架与餐盘区设计为宽松目标区域，保证「识别→抓取→归位」可重复、高成功率跑通。</li>
+              <li style="color:#CBD5E1;"><strong style="color:#fff;">保留进阶空间：</strong>如 L1–L2 提前跑通且余量充足，再视舵机重复定位精度决定是否尝试轻度叠放。</li>
+            </ul>
+          </div>
+          <div style="border-top:1px solid #334155; padding-top:16px; font-family:var(--font-mono); font-size:15px; color:#93C5FD;">
+            SCOPE: STRUCTURED DESKTOP · SINGLE ARM · L1–L2 CLOSED LOOP
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <div class="footer-source">资料来源：《应用场景调研.md》第 3.1、3.3、3.4 节；《桌面整理机械臂市场调研报告（修改版）》3.2、6.1 节</div>
+      <div class="footer-page">06 / 13</div>
+    </div>
+  </div>
+</body>
+</html>

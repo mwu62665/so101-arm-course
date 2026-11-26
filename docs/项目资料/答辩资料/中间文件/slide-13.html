@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>Slide 13 · 总结与致谢</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .summary-hero {
+      background: var(--surface-dark);
+      color: var(--ink-inv);
+      border-radius: 10px;
+      padding: 46px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+    .summary-hero::after {
+      content: "SO-ARM101";
+      position: absolute;
+      right: 48px;
+      bottom: -24px;
+      font-family: var(--font-mono);
+      font-size: 168px;
+      font-weight: 800;
+      color: rgba(255, 255, 255, 0.04);
+      pointer-events: none;
+    }
+    .sum-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin: 32px 0;
+    }
+    .sum-box {
+      background: rgba(30, 41, 59, 0.85);
+      border: 1px solid #334155;
+      border-top: 4px solid #3B82F6;
+      border-radius: 6px;
+      padding: 26px 28px;
+    }
+    .sum-box.teal { border-top-color: #14B8A6; }
+    .sum-box.ok { border-top-color: #10B981; }
+    .sum-box .num {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: #93C5FD;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .sum-box.teal .num { color: #5EEAD4; }
+    .sum-box.ok .num { color: #6EE7B7; }
+    .sum-box h3 {
+      font-size: 24px;
+      color: #FFFFFF;
+      margin-bottom: 12px;
+    }
+    .sum-box p {
+      font-size: 17px;
+      line-height: 1.58;
+      color: #CBD5E1;
+    }
+    .qa-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-top: 1px solid #334155;
+      padding-top: 28px;
+    }
+    .qa-title {
+      font-size: 44px;
+      font-weight: 800;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+    }
+    .qa-sub {
+      font-size: 20px;
+      color: #94A3B8;
+      margin-top: 8px;
+    }
+    .qa-meta {
+      text-align: right;
+      font-family: var(--font-mono);
+      font-size: 16px;
+      color: #94A3B8;
+      line-height: 1.7;
+    }
+  </style>
+</head>
+<body>
+  <div class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <div class="kicker"><span class="kicker-dot"></span>12 // SUMMARY & Q&A</div>
+        <h1 class="slide-title">总结：需求真实、路线稳健、成本可控、边界清晰</h1>
+      </div>
+      <div class="header-right">电子信息工程第十四组<br/>开题答辩汇报完毕</div>
+    </div>
+
+    <div class="slide-body">
+      <div class="summary-hero">
+        <div>
+          <span class="badge" style="background:#1E3A8A; color:#93C5FD; border-color:#3B82F6; margin-bottom:16px;">PROPOSAL TAKEAWAYS</span>
+          <h2 style="font-size:34px; font-weight:700; line-height:1.35; max-width:1400px;">
+            基于 <span style="color:#60A5FA;">SO-ARM101</span> 低成本开源硬件，在规整桌面环境下跑通「识别 → 抓取 → 归位」可复现闭环。
+          </h2>
+        </div>
+
+        <div class="sum-grid">
+          <div class="sum-box">
+            <div class="num">01 // 场景选得准</div>
+            <h3>贴近真实需求，聚焦可落地闭环</h3>
+            <p>聚焦「桌面杯具 / 餐具归位整理」，切中教育与开发者低成本可复现闭环空位；主动收敛至 L1–L2 宽松平面归位，不夸大通用家务能力。</p>
+          </div>
+
+          <div class="sum-box teal">
+            <div class="num">02 // 路线设计稳</div>
+            <h3>双路线互补，稳健与泛化兼顾</h3>
+            <p>LeRobot 原生架构接口统一、降低联调门槛；YOLO 程序化抓取确保 F2 基础闭环稳健，单臂示教 ACT 推进 F3 泛化，轻量 LLM 提供安全可控的语言入口。</p>
+          </div>
+
+          <div class="sum-box ok">
+            <div class="num">03 // 执行已启动</div>
+            <h3>物料已下单，锚点验收清晰</h3>
+            <p>全套核心硬件已于 11-25 完成下单，预算严格控制在课程报销上限内；到货即触发组装与单臂两用 Go/No-Go 验证，按 F0–F5 阶梯推进交付。</p>
+          </div>
+        </div>
+
+        <div class="qa-bar">
+          <div>
+            <div class="qa-title">感谢聆听 · 请各位老师批评指正</div>
+            <div class="qa-sub">Thank you for your attention. Questions &amp; suggestions are welcome.</div>
+          </div>
+          <div class="qa-meta">
+            <div>GROUP 14 · 电子信息工程第十四组</div>
+            <div>SO-ARM101 · LEROBOT · 2026-11-26</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <div class="footer-source">项目全部代码、数据集与文档将开源归档至团队 GitHub 仓库，知识产权归全体组员共享</div>
+      <div class="footer-page">13 / 13</div>
+    </div>
+  </div>
+</body>
+</html>
