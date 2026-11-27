@@ -122,20 +122,20 @@
           </div>
           <div class="route-body">
             <div class="flow-chips">
-              <span class="chip">人手掰臂示教</span><span class="chip-arr">→</span>
+              <span class="chip">手柄遥操作示教</span><span class="chip-arr">→</span>
               <span class="chip">舵机反馈+相机帧</span><span class="chip-arr">→</span>
               <span class="chip">ACT 策略训练</span><span class="chip-arr">→</span>
               <span class="chip">端到端泛化抓取</span>
             </div>
             <ul class="clean-list" style="gap:18px;">
               <li style="font-size:20px;"><strong>适用物体：</strong>抓取位姿敏感、摆放角度多变的杯具等生活化物体——难以通过固定几何规则参数化，直接从人类示教学习动作序列。</li>
-              <li style="font-size:20px;"><strong>单臂无手柄采集方案：</strong>预算约束下不买主从双臂，采用<strong>「单臂两用」</strong>：断力矩后人手掰臂，同步读取 6 舵机关节角与双相机图像。</li>
+              <li style="font-size:20px;"><strong>单臂手柄遥操作采集：</strong>预算约束下不采购主从双臂，使用<strong>组员自有手柄遥操作控制机械臂</strong>，同步记录 6 舵机关节角与双相机图像。</li>
               <li style="font-size:20px;"><strong>示教规模与验收：</strong>采集约 <strong>50–100 条</strong>高质量示教；验收标准为对<strong>未示教过的杯子摆放位置</strong>实现自主抓取泛化。</li>
             </ul>
             <div class="meta-kv">
               <div class="kv-box">
                 <div class="k">KEY GATE</div>
-                <div class="v" style="color:var(--accent);">组装后首做「单臂两用」Go/No-Go</div>
+                <div class="v" style="color:var(--accent);">组装后首做手柄遥操作联调验证</div>
               </div>
               <div class="kv-box">
                 <div class="k">EXECUTION MODULE</div>
@@ -148,12 +148,12 @@
 
       <div class="conclusion-bar">
         <span class="tag">ENGINEERING LOGIC</span>
-        <span>工程风险对冲设计：<strong>F2 程序化抓取确保基础闭环稳健落地</strong>；组装后优先验证单臂示教读数平滑性，通过则重点推进 <strong>F3 ACT 模仿学习泛化</strong>。</span>
+        <span>工程风险对冲设计：<strong>F2 程序化抓取确保基础闭环稳健落地</strong>；组装后优先完成手柄遥操作控制与同步采集联调，重点推进 <strong>F3 ACT 模仿学习泛化</strong>。</span>
       </div>
     </div>
 
     <div class="slide-footer">
-      <div class="footer-source">资料来源：《应用场景调研.md》第 3.3 节、《项目规划.md》第 5.1–5.2 节（单臂两用 Go/No-Go 验证机制）</div>
+      <div class="footer-source">资料来源：《应用场景调研.md》第 3.3 节、《项目规划.md》第 5.1–5.2 节（手柄遥操作示教采集方案）</div>
       <div class="footer-page">08 / 13</div>
     </div>
   </div>
